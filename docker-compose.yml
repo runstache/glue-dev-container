@@ -1,0 +1,33 @@
+networks:
+  glue_net:
+    name: glue_net
+
+services:
+  dev-glue:
+    image: amazon/aws-glue-libs:glue_libs_4.0.0_image_01
+    container_name: dev-glue
+    networks:
+      - glue_net
+    ports:
+      - "8888:8888"
+      - "4040:4040"
+
+    environment:
+      TEST_SERVER_MODE: true
+      TEST_SERVER_MODE_ENDPOINT: http://dev-moto:3000
+      MOTO_CALL_RESET_API: false
+    command: ["/home/glue_user/jupyter/jupyter_start.sh"]
+    volumes:
+      - ~/.aws:/home/glue_user/.aws
+
+  dev-moto:
+    image: motoserver/moto:latest
+    container_name: dev-moto
+    networks:
+      - glue_net
+    ports:
+      - "3000:3000"
+    environment:
+      - MOTO_PORT=3000
+
+      

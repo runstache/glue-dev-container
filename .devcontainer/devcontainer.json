@@ -1,0 +1,11 @@
+{
+    "name": "glue-dev-container-environment",
+    "dockerComposeFile": [
+        "../docker-compose.yml",
+        "docker-compose.yml"
+    ],
+    "workspaceFolder": "/home/glue_user/",
+    "service": "dev-glue",
+    "remoteUser": "glue_user",
+    "shutdownAction": "stopCompose"
+}
